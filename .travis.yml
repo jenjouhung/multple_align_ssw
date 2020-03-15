@@ -1,0 +1,24 @@
+language: python
+python:
+    - 2.7
+    - 3.3
+    - 3.4
+    - 3.5
+    - 3.6
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+before_install:
+    - date -u
+    - uname -a
+    - lsb_release -a
+    - sudo apt-get -qq update
+install:
+    - pip install coveralls
+    - python setup.py install
+script:
+    - nosetests --with-coverage --cover-package=ssw
+after_success:
+    - coveralls
